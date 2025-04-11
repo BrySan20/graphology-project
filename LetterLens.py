@@ -33,7 +33,22 @@ if os.name == 'nt':  # Si es Windows
 else:  # Si es un entorno Linux (en Docker)
     pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 
-os.makedirs('static/temp_letters', exist_ok=True)
+# os.makedirs('static/temp_letters', exist_ok=True)
+
+def cleanup_temp_images():
+    temp_dir = 'static/temp_letters'
+    # Asegurarse de que el directorio existe
+    os.makedirs(temp_dir, exist_ok=True)
+    
+    # Listar archivos y eliminar solo los que existen
+    for filename in os.listdir(temp_dir):
+        if filename.endswith('.png') or filename.endswith('.jpg'):
+            file_path = os.path.join(temp_dir, filename)
+            if os.path.exists(file_path):
+                try:
+                    os.remove(file_path)
+                except:
+                    pass
 
 # Configuración del entorno
 app = Flask(__name__)
@@ -722,4 +737,6 @@ def grafica_letras():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Configuración para desarrollo y producción
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
