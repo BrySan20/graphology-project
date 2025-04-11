@@ -136,10 +136,10 @@ def process_image():
         -c textord_heavy_nr=1  # Eliminar ruido pesado
         -c edges_max_children_per_outline=40  # Máximo de contornos hijos
         '''
-        recognized_text = pytesseract.image_to_string(thresh_image, lang='spa', config=custom_config)
+        recognized_text = pytesseract.image_to_string(thresh_image, lang='eng', config=custom_config)
     
         # Extraer cada letra y su posición
-        boxes = pytesseract.image_to_boxes(thresh_image, lang='spa')
+        boxes = pytesseract.image_to_boxes(thresh_image, lang='eng')
         letters = []
 
         # equipo3
@@ -254,7 +254,7 @@ def process_image_text(image_path):
     scale_factor = 300 / 72
     new_size = (int(img.width * scale_factor), int(img.height * scale_factor))
     img = img.resize(new_size, Image.LANCZOS)
-    text = pytesseract.image_to_string(img, lang='spa', config='--psm 6')
+    text = pytesseract.image_to_string(img, lang='eng', config='--psm 6')
     return text
     
 def count_letters(text):
