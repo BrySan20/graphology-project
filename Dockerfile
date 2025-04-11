@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     libpoppler-cpp-dev \
     tesseract-ocr-eng \
+    tesseract-ocr-spa \
     libgl1 \
     && apt-get clean
 
@@ -25,10 +26,11 @@ ENV FLASK_APP=LetterLens.py
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV PYTHONUNBUFFERED=1
 # Asegurar que los datos de idioma de Tesseract estén correctamente instalados
-ENV TESSDATA_PREFIX=/usr/share/tesseract-ocr/4.00/tessdata/
+ENV TESSDATA_PREFIX=/usr/share/tesseract-ocr/tessdata/
 
 # Asegurarse que los directorios temporales existan
 RUN mkdir -p /app/static/temp_letters
+RUN chmod -R 777 /app/static/temp_letters
 
 # Exponer el puerto para Flask
 EXPOSE 5000
