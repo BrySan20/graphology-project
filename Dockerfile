@@ -24,6 +24,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 ENV FLASK_APP=LetterLens.py
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV PYTHONUNBUFFERED=1
+# Asegurar que los datos de idioma de Tesseract estén correctamente instalados
+ENV TESSDATA_PREFIX=/usr/share/tesseract-ocr/4.00/tessdata/
 
 # Asegurarse que los directorios temporales existan
 RUN mkdir -p /app/static/temp_letters

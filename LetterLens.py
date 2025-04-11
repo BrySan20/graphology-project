@@ -33,6 +33,8 @@ if os.name == 'nt':  # Si es Windows
 else:  # Si es un entorno Linux (en Docker)
     pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 
+os.makedirs('static/temp_letters', exist_ok=True)
+
 # Configuración del entorno
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/imagenes'
