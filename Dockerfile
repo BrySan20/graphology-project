@@ -18,6 +18,11 @@ WORKDIR /app
 # Copiar los archivos del proyecto al contenedor
 COPY . /app
 
+# Crear directorio tessdata si no existe y copiar archivos de idioma
+RUN mkdir -p /usr/share/tesseract-ocr/tessdata
+COPY tessdata/spa.traineddata /usr/share/tesseract-ocr/tessdata/
+COPY tessdata/eng.traineddata /usr/share/tesseract-ocr/tessdata/
+
 # Instalar las dependencias de Python
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -31,6 +36,9 @@ ENV TESSDATA_PREFIX=/usr/share/tesseract-ocr/tessdata/
 # Asegurarse que los directorios temporales existan
 RUN mkdir -p /app/static/temp_letters
 RUN chmod -R 777 /app/static/temp_letters
+
+# Verificar que el archivo de idioma está en su lugar
+RUN ls -la /usr/share/tesseract-ocr/tessdata/
 
 # Exponer el puerto para Flask
 EXPOSE 5000
